@@ -100,7 +100,8 @@ function bibtexbrowser_configure($key, $value) {
 @define('BIBTEXBROWSER_DOI_LINKS',true);
 // do we add [gsid] links (Google Scholar)?
 @define('BIBTEXBROWSER_GSID_LINKS',true);
-
+// do we add [url] links?
+@define('BIBTEXBROWSER_URL_LINKS',true);
 // should pdf, doi, url, gsid links be opened in a new window?
 @define('BIBTEXBROWSER_LINKS_IN_NEW_WINDOW',true);
 
@@ -1133,23 +1134,6 @@ class BibEntry {
     return $link;
   }
 
-  /** returns a "[pdf]" link if relevant. modified to exploit the new method, while keeping backward compatibility */
-  function getUrlLink($iconurl = NULL, $label = 'pdf') {
-    if ($this->hasField('url')) {
-      return $this->getLink('url', $iconurl, $label);
-    }
-    if ($this->hasField('pdf')) {
-      return $this->getLink('pdf', $iconurl, $label);
-    }
-    // Adding link to PDF file exported by Zotero
-    // ref: https://github.com/monperrus/bibtexbrowser/pull/14
-    if ($this->hasField('file')) {
-      return $this->getLink('file', $iconurl, $label);
-    }
-  }
-
-
-
   /** DOI are a special kind of links, where the url depends on the doi */
   function getDoiLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('doi',$iconurl);
@@ -1160,7 +1144,7 @@ class BibEntry {
   }
 
   /** GS (Google Scholar) are a special kind of links, where the url depends on the google scholar id */
-  function getGSLink($iconurl=NULL) {
+  function getGsidLink($iconurl=NULL) {
     $str = $this->getIconOrTxt('cites',$iconurl);
     if ($this->hasField('gsid')) {
         return ' <a'.(BIBTEXBROWSER_LINKS_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">'.$str.'</a>';
@@ -1694,11 +1678,11 @@ function bib2links_default(&$bibentry) {
   $str = '<span class="bibmenu">';
 
   if (BIBTEXBROWSER_BIBTEX_LINKS) {
-    $str .= ' '.$bibentry->getBibLink();
+    $str .= ' '.$bibentry->getBibtexLink();
   }
 
   if (BIBTEXBROWSER_PDF_LINKS) {
-    $str .= ' '.$bibentry->getUrlLink();
+    $str .= ' '.$bibentry->getLink('file', null, 'pdf');
   }
 
   if (BIBTEXBROWSER_DOI_LINKS) {
@@ -1706,7 +1690,11 @@ function bib2links_default(&$bibentry) {
   }
 
   if (BIBTEXBROWSER_GSID_LINKS) {
-    $str .= ' '.$bibentry->getGSLink();
+    $str .= ' '.$bibentry->getGsidLink();
+  }
+
+  if (BIBTEXBROWSER_URL_LINKS) {
+    $str .= ' '.$bibentry->getLink('url');
   }
 
   $str .= '</span>';
