@@ -1267,6 +1267,8 @@ class BibEntry {
   */
   function formatAuthorCommaSeparated($author){
       list($firstname, $lastname) = splitFullName($author);
+      if ($firstname!='' && substr($firstname,-1)!='.')
+      	$firstname = substr($firstname, 0, 1).'.';
       if ($firstname!='') return $lastname.', '.$firstname;
       else return $lastname;
   }
