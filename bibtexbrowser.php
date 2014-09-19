@@ -1378,7 +1378,7 @@ class BibEntry {
     }
     if (COMMA_NAMES) {$sep = '; ';} else {$sep = ', ';}
     if (FORCE_NAMELIST_SEPARATOR !== '') {$sep = FORCE_NAMELIST_SEPARATOR;}
-    return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
+    return implode($sep, $editors).' ('.(count($editors)>1?'eds.':'ed.').')';
   }
 
   /** Returns the year of this entry? */
