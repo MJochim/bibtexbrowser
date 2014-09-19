@@ -1273,7 +1273,7 @@ class BibEntry {
     }
 //     echo $this->filename;
 //     echo $this->getKey();
-    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
+    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename)).'#bibtex';
   }
 
   /** @see bib2links(), kept for backward compatibility */
