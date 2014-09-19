@@ -1100,7 +1100,7 @@ class BibEntry {
     }
 //     echo $this->filename;
 //     echo $this->getKey();
-    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename));
+    return BIBTEXBROWSER_URL.'?'.createQueryString(array(Q_KEY=>$this->getKey(), Q_FILE=>$this->filename)).'#bibtex';
   }
 
   /** @see bib2links(), kept for backward compatibility */
@@ -2888,7 +2888,7 @@ class BibEntryDisplay {
 
   /** 2011/10/02: new display, inspired from Tom Zimmermann's home page */
   function displayOnSteroids() {
-      $reference = '<h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'>Reference:</h><p>'.strip_tags(bib2html($this->bib)).'</p>';
+      $reference = '<h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'>Reference</h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'><p>'.strip_tags(bib2html($this->bib)).'</p>';
 
       $bibtex = '<h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'><a name="bibtex"></a>BibTeX</h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'>'.$this->bib->toEntryUnformatted().'';
       return $reference.$bibtex.$this->bib->toCoins();
