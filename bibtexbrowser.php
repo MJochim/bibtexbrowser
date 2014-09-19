@@ -1125,7 +1125,7 @@ class BibEntry {
   }
 
   /** returns a "[bib]" link */
-  function getBibLink($iconurl=NULL) {
+  function getBibtexLink($iconurl=NULL) {
     $bibstr = $this->getIconOrTxt('bibtex',$iconurl);
     $href = 'href="'.$this->getURL().'"';
     // we add biburl and title to be able to retrieve this important information
