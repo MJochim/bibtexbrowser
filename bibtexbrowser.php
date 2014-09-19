@@ -1644,7 +1644,7 @@ class BibEntry {
     }
     if (bibtexbrowser_configuration('USE_COMMA_AS_NAME_SEPARATOR_IN_OUTPUT')) {$sep = '; ';} else {$sep = ', ';}
     if (FORCE_NAMELIST_SEPARATOR !== '') {$sep = FORCE_NAMELIST_SEPARATOR;}
-    return implode($sep, $editors).', '.(count($editors)>1?'eds.':'ed.');
+    return implode($sep, $editors).' ('.(count($editors)>1?'eds.':'ed.').')';
   }
 
   /** Returns the year of this entry? */
