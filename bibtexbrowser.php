@@ -128,7 +128,8 @@ if (defined('ENCODING')) {
 @define('BIBTEXBROWSER_DOI_LINKS',true);
 // do we add [gsid] links (Google Scholar)?
 @define('BIBTEXBROWSER_GSID_LINKS',true);
-
+// do we add [url] links?
+@define('BIBTEXBROWSER_URL_LINKS',true);
 // should pdf, doi, url, gsid links be opened in a new window?
 @define('BIBTEXBROWSER_LINKS_TARGET','_self');// can be _blank (new window), _top (with frames)
 
@@ -2001,6 +2002,11 @@ function bib2links_default($bibentry) {
 
   if (BIBTEXBROWSER_GSID_LINKS) {
     $link = $bibentry->getGSLink();
+    if ($link != '') { $links[] = $link; };
+  }
+
+  if (BIBTEXBROWSER_URL_LINKS) {
+    $link = $bibentry->getLink('url');
     if ($link != '') { $links[] = $link; };
   }
 
