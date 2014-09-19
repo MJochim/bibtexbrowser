@@ -2883,21 +2883,10 @@ class BibEntryDisplay {
 
   /** 2011/10/02: new display, inspired from Tom Zimmermann's home page */
   function displayOnSteroids() {
-      $subtitle = '<div class="bibentry-by">by '.$this->bib->getFormattedAuthorsImproved().'</div>';
+      $reference = '<h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'>Reference:</h><p>'.strip_tags(bib2html($this->bib)).'</p>';
 
-      $abstract = '';
-      if ($this->bib->hasField('abstract')) {
-        $abstract = '<div class="bibentry-label">Abstract:</div><div class="bibentry-abstract">'.$this->bib->getAbstract().'</div>';
-      }
-
-      $download = '';
-      if ($this->bib->hasField('url')) {
-        $download = '<div class="bibentry-document-link"><a href="'.$this->bib->getField('url').'">View PDF</a></div>';
-      }
-      $reference= '<div class="bibentry-label">Reference:</div><div class="bibentry-reference">'.strip_tags(bib2html($this->bib)).'</div>';
-
-      $bibtex = '<div class="bibentry-label">Bibtex Entry:</div>'.$this->bib->toEntryUnformatted().'';
-      return $subtitle.$abstract.$download.$reference.$bibtex.$this->bib->toCoins();
+      $bibtex = '<h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'><a name="bibtex"></a>BibTeX</h'.BIBTEXBROWSER_HTMLHEADINGLEVEL.'>'.$this->bib->toEntryUnformatted().'';
+      return $reference.$bibtex.$this->bib->toCoins();
   }
 
   function display() {
