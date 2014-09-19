@@ -197,7 +197,7 @@ define('Q_INNER_TYPE', 'x-bibtex-type');// used for representing the type of the
 // we ensure that the pages won't get polluted
 // if future versions of PHP change warning mechanisms...
 
-@error_reporting(/*pp4php:serl*/E_ALL/*lres*/);
+@error_reporting(/*pp4php:serl*/E_WARNING/*lres*/);
 
 function config_value($key) {
   global $CONFIGURATION;
