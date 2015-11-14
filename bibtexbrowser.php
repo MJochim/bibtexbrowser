@@ -1127,7 +1127,11 @@ class BibEntry {
   /** returns a "[bib]" link */
   function getBibtexLink($iconurl=NULL) {
     $bibstr = $this->getIconOrTxt('bibtex',$iconurl);
-    $href = 'href="'.$this->getURL().'"';
+    if (defined('BIBTEXBROWSER_BIBTEXLINKURL')) {
+      $href = 'href="'.(BIBTEXBROWSER_BIBTEXLINKURL).'&key='.$this->getKey().'#bibtex"';
+    } else {
+      $href = 'href="'.$this->getURL().'"';
+    }
     // we add biburl and title to be able to retrieve this important information
     // using Xpath expressions on the XHTML source
     $link = "<a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>$bibstr</a>";
